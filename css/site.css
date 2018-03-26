@@ -70,11 +70,11 @@ strong {
 	font-size: 12px;
 }
 .container{
-	margin: 20px 0;
+	margin: 10px ;
 }
 .graphs > div {
-	margin-bottom: 15px;
-	min-height: 420px;
+	margin-bottom: 5px;
+	min-height: 490px;
 }
 .chart-container {
 	border: 1px solid #e6e7e8;
