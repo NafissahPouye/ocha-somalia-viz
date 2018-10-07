@@ -118,6 +118,7 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
         var mthDiff = monthDiff(startDate, endDate);
         var spanType = targetArr[0]['#meta+cumulative'];
         var dateRange = '';
+        // create a new span type
         switch(spanType.toLowerCase()) {
             case 'per month':
                 dateRange = (targetArr[0]['#date+end']!=null) ? ' as of ' + getMonthName(endDate.getMonth()) : '' + ' Per Month ';
