@@ -120,13 +120,16 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
         var dateRange = '';
         switch(spanType.toLowerCase()) {
             case 'per month':
-                dateRange = (targetArr[0]['#date+end']!=null) ? ' as of ' + getMonthName(endDate.getMonth()) : '';
+                dateRange = (targetArr[0]['#date+end']!=null) ? ' as of ' + getMonthName(endDate.getMonth()) : '' + ' Per Month ';
+                break;
+            case 'seasonal':
+                dateRange = (targetArr[0]['#date+end']!=null) ? ' as of ' + getMonthName(endDate.getMonth()) : '' + ' Seasonal ';
                 break;
             case 'monthly':
-                dateRange = ' as of ' + getMonthName(endDate.getMonth());
+                dateRange = ' As of ' + getMonthName(endDate.getMonth());
                 break;
             default:
-                dateRange = ' ' + getMonthName(startDate.getMonth()) + ' to ' + getMonthName(endDate.getMonth());
+                dateRange = 'Cumulative ' + getMonthName(startDate.getMonth()) + ' to ' + getMonthName(endDate.getMonth());
         }
 
         var keyfigureTarg = '';
@@ -146,6 +149,26 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
         var valueTargetArray = ['Target'];
         var targetVal = 0;
         if (spanType.toLowerCase()=='per month') {
+            var lastDate = new Date();
+            var total = 0;
+            var first = true;
+            targetArr.forEach(function(value, index) {
+                if (first) {
+                    lastDate = value['#date+start'];
+                    first = false;
+                }
+                if (value['#date+start'].getTime() != lastDate.getTime()) {
+                    lastDate = value['#date+start'];
+                    valueTargetArray.push(total);
+                    targetVal += Number(total);
+                    total = 0;
+                }
+                total += value['#targeted'];
+            });
+            //add last total to array
+            valueTargetArray.push(total);
+        } else 
+        if (spanType.toLowerCase()=='seasonal') {
             var lastDate = new Date();
             var total = 0;
             var first = true;
@@ -200,7 +223,7 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
         var reachClass = (keyfigureProg <= 0) ? 'hidden' : '';
 
         //create key stats
-        $('.graphs').append('<div class="col-sm-6 col-md-4" id="indicator' + i + '"><div class="header"><i class="icon-ocha icon-'+sectorIcon+'"></i><h4>' + currentSector + '</h4><h3>'+  currentIndicator +'</h3></div><div class="chart-container"><div class="keystat-container"><div class="keystat ' + targClass + '"><div class="num targetNum">' + formatComma(keyfigureTarg) + '</div> targeted</div><div class="keystat ' + reachClass + '"><div class="num reachedNum">' + formatComma(keyfigureProg) + '</div> reached</div></div><div class="timespan text-center small">(' + spanType + dateRange + ')</div><div id="chart' + i + '" class="chart"></div></div></div>');
+        $('.graphs').append('<div class="col-sm-6 col-md-4" id="indicator' + i + '"><div class="header"><i class="icon-ocha icon-'+sectorIcon+'"></i><h4>' + currentSector + '</h4><h3>'+  currentIndicator +'</h3></div><div class="chart-container"><div class="keystat-container"><div class="keystat ' + targClass + '"><div class="num targetNum">' + formatComma(keyfigureTarg) + '</div> targeted</div><div class="keystat ' + reachClass + '"><div class="num reachedNum">' + formatComma(keyfigureProg) + '</div> reached</div></div><div class="timespan text-center small">(' + dateRange + ')</div><div id="chart' + i + '" class="chart"></div></div></div>');
 
         //create bar charts
         var chartType = 'line';
