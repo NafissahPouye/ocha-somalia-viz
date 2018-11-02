@@ -246,7 +246,7 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
                     localtime: false,
                     tick: {
                         centered: true,
-                        rotate: 39,
+                        rotate: 40,
                         format: '%b %Y',
                         outer: false,
                         
