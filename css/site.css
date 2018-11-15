@@ -29,8 +29,13 @@ body {
 }
 h1 {
 	font-family: 'Gotham-Bold';
-	font-size: 19px;
+	font-size: 16px;
 	margin-top: 0;
+}
+h5 {
+	font-family: 'Gotham-Bold';
+	font-size: 13px;
+	margin-bottom: 0px;
 }
 h1+p {
 	margin-bottom: 20px;
@@ -47,8 +52,12 @@ h4{
 	margin-bottom: 5px;
 	text-transform: uppercase;
 }
+.lk{
+	font-size: 8px;
+	text-decoration: none;
+}
 a {
-	text-decoration: underline;
+	text-decoration: none;
 }
 strong {
 	font-family: 'Gotham-Bold';
