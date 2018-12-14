@@ -244,11 +244,13 @@ function generateCharts(targetData, progressData, keyfigureTargetData, keyfigure
                 x: {
                     type: 'timeseries',
                     localtime: false,
+                
                     tick: {
                         centered: true,
-                        rotate: 40,
+                       rotate: 40,
                         format: '%b %Y',
                         outer: false,
+                        count: 6
                         
                     }
                 },
